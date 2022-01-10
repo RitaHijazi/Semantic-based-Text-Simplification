@@ -1,1 +1,1 @@
-# Semantic-based-Text-Simplification
+# Semantic-based Text Simplification
