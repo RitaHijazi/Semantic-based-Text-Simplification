@@ -7,7 +7,7 @@ SEMBASIM: A Syntactic Text Simplification System using DMRS Semantic Representat
 Rita Hijazi, Bernard Espinasse, Núria Gala
 LREC 2022
 ```
-**./Automatic Evaluation Outputs
+**./Automatic Evaluation Outputs**
 
 Outputs of the systems for the 91 transformed sentences automatically evaluated. These are the first 70 sentences of the test corpus of HSplit (Sulem et al., 2016).
 The source and reference sentences as well as the outputs for HSplit can be found at https://github.com/feralvam/easse/tree/master/easse/resources/data/test_sets/hsplit.
