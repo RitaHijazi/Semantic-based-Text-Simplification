@@ -1,0 +1,14 @@
+% --------------------------------------------------------- 
+% RULE PARTICIPALS
+% ---------------------------------------------------------
+
+rule part{
+	pattern {V1[pos=v]; V2[pos=v]; S[]; a: V1-[ARG2:EQ]->S; b: V2-[ARG1:NEQ]->S; S<<V1; V1<<V2; d:D-[RSTR:H]->S; }
+	commands {
+	del_edge b; 
+    add_node S2:<V2; append_feats S==>S2;
+    add_node D2:<S2; append_feats D==>D2; D2.lemma=D.lemma;
+    add_edge D2-[RSTR:H]->S2;
+    add_edge V2-[ARG1:NEQ]->S2;
+    a.1=ARG2; a.2=NEQ
+    }} 

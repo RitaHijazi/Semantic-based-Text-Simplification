@@ -1,0 +1,17 @@
+%------------------
+%Rule RELATIVES
+%------------------
+
+
+rule rel{
+
+pattern {V1[]; V2[pos=v]; V1-[ARG2:NEQ]->S; a: V2-[ARG1:EQ]->S; V1<<S; V2>>S; D-[RSTR:H]->S; D<<S;}
+without {S[lemma=and]}
+commands {
+	del_edge a; 
+	add_node S2:<V2; append_feats S==>S2; S2.lemma=S.lemma; 
+	add_node D2:<S2; append_feats D==>D2; D2.lemma="the"; 
+	add_edge D2-[RSTR:H]->S2;
+	add_edge V2-[ARG1:NEQ]->S2; 
+	
+	}}
