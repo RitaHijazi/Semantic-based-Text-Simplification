@@ -1,0 +1,161 @@
+% --------------------------------------------------------- 
+% RULE COORD Shared element with and 
+% ---------------------------------------------------------
+
+rule coord_share_and 
+{
+
+	pattern {
+		A [lemma="and"];
+		V1 [pos="v"];
+		V2 [pos="v"];
+		m: A-> V1; 
+		a: A-> V2; 
+		s1: V1-> S;
+        	s2: V2-> S;
+        	f: V2->V1;
+		d : D-[RSTR:H]->S; D>S; D[lemma]; S[gpred];
+        }
+	without {V1<A; V2>A}
+commands {S.select=yes; N.subjectlink=yes; del_edge z  } }
+package propagate {
+	rule down {
+	pattern { M[select]; Z1[!select]; M -> Z1 }
+	commands { Z1.select = yes }}
+
+	rule up {
+	pattern { M[select]; Z2[!select]; Z2 -> M } 
+	commands { Z2.select = yes }} }
+
+rule right_limit {
+	pattern {LR_selected[select=yes];LR[!select];LR > LR_selected;}
+	without {X[select=yes]; LR_selected < X;} 
+	commands {LR.last=yes;}}
+	
+rule copy_node{ 
+	pattern {S[select=yes];LR[last=yes];}
+	without {X[select=yes];S > X;}
+	commands{del_feat S.select;add_node S_copy:<LR;append_feats S ==> S_copy;del_feat S.subjectlink;add_edge S -[copy:yes]-> S_copy}}
+
+rule copy_edge{
+	pattern {A1 -[copy:yes]-> A2;B1 -[copy:yes]-> B2;e: A1 -> B1}
+	without {f: A2 -> B2; e.label = f.label}
+	commands{add_edge f: A2 -> B2; f.label = e.label;}}
+
+rule del_copy_edge{
+	pattern { c: A1 -[copy:yes]-> A2 }
+	commands { del_edge c; add_node S1:>A; 
+		append_feats S ==> S1; S1.gpred=S.gpred; add_node D1:>S1; 
+		append_feats D ==> D1; D1.lemma=D.lemma;
+		del_node A;
+		add_edge d1: D1->S1; d1.label=d.label;
+		add_edge q2: V2->S1; q2.label=s2.label;
+		del_edge s2; }}
+strat main 
+{Seq (coord_share_and ,Onf(propagate),right_limit,Onf(copy_node),Onf(copy_edge),Onf(del_copy_edge)
+)}
+
+
+% --------------------------------------------------------- 
+% RULE COORD NO Shared element with and 
+% ---------------------------------------------------------
+rule coord_and_no_sahre
+{
+
+	pattern {
+		A [lemma="and"];
+		V1 [pos="v"];
+		V2 [pos="v"];
+		m: A-[ARG1:EQ]-> V1;
+		a: A-[ARG2:EQ]-> V2;
+		s1: V1-> S1;
+		s2: V2-> S2;
+        e: V2-[MOD:EQ]->V1;
+        }
+        
+	without {S1.lemma=S2.lemma;}
+		
+        commands { 
+		del_edge e;
+		del_node A;
+		}}
+
+
+
+
+% --------------------------------------------------------- 
+% RULE COORD Shared element with But 
+% ---------------------------------------------------------
+
+rule coord_share_but 
+{
+
+	pattern {
+		A [lemma="but"];
+		V1 [pos="v"];
+		V2 [pos="v"];
+		m: A-> V1; 
+		a: A-> V2; 
+		s1: V1-> S;
+        	s2: V2-> S;
+        	f: V2->V1;
+		d : D-[RSTR:H]->S; D>S; D[lemma]; S[gpred];}
+	without {V1<A; V2>A}
+commands {S.select=yes; N.subjectlink=yes; del_edge z  } }
+package propagate {
+	rule down {
+	pattern { M[select]; Z1[!select]; M -> Z1 }
+	commands { Z1.select = yes }}
+
+	rule up {
+	pattern { M[select]; Z2[!select]; Z2 -> M } 
+	commands { Z2.select = yes }} }
+
+rule right_limit {
+	pattern {LR_selected[select=yes];LR[!select];LR > LR_selected;}
+	without {X[select=yes]; LR_selected < X;} 
+	commands {LR.last=yes;}}
+	
+rule copy_node{ 
+	pattern {S[select=yes];LR[last=yes];}
+	without {X[select=yes];S > X;}
+	commands{del_feat S.select;add_node S_copy:<LR;append_feats S ==> S_copy;del_feat S.subjectlink;add_edge S -[copy:yes]-> S_copy}}
+
+rule copy_edge{
+	pattern {A1 -[copy:yes]-> A2;B1 -[copy:yes]-> B2;e: A1 -> B1}
+	without {f: A2 -> B2; e.label = f.label}
+	commands{add_edge f: A2 -> B2; f.label = e.label;}}
+
+rule del_copy_edge{
+	pattern { c: A1 -[copy:yes]-> A2 }
+	commands { del_edge c; add_node S1:>A; 
+		append_feats S ==> S1; S1.gpred=S.gpred; add_node D1:>S1; 
+		append_feats D ==> D1; D1.lemma=D.lemma;
+		add_edge d1: D1->S1; d1.label=d.label;
+		add_edge q2: V2->S1; q2.label=s2.label;
+		del_edge s2; }}
+strat main 
+{Seq (coord_share_and ,Onf(propagate),right_limit,Onf(copy_node),Onf(copy_edge),Onf(del_copy_edge)
+)}
+
+
+
+% --------------------------------------------------------- 
+% RULE COORD NO Shared element with BUT
+% ---------------------------------------------------------
+rule coord1_but
+{
+
+	pattern {
+		A [lemma="but"];
+		V1 [];
+		V2 [];
+		m: A-[ARG1:EQ]-> V1;
+		a: A-[ARG2:EQ]-> V2;
+        e: V2-[MOD:EQ]->V1;
+        }
+		
+    commands { 
+		del_edge e;
+		del_edge m;
+		}}
