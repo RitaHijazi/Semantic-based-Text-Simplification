@@ -21,3 +21,4 @@ This folder contains the following system outputs:
 - **UNTS**: "Unsupervised Neural Text Simplification" [(paper)] (https://aclanthology.org/P19-1198/).
 - **DSS**: "Direct Semantic Splitting" [(paper)] (https://arxiv.org/abs/1810.05104).
 
+This site was built using [GitHub Pages](https://pages.github.com/). 
