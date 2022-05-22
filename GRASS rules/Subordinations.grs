@@ -1,0 +1,24 @@
+% --------------------------------------------------------- 
+% RULE SUBORDINATION
+% ---------------------------------------------------------
+
+
+rule sub {
+	pattern { 
+		A [gpred= "subord"];
+		V1 [pos=v];
+		V2 [pos=v];
+		n1: A-[ARG1:H]->V1;
+		n2: A-[ARG2:H]->V2;
+		s1: V1->S; S<<V1; 
+		d: D-[RSTR:H]->S; D[lemma]; D<<S
+        }
+	without {S[lemma="and"]}	
+	commands {
+		V2.PROG=V1.PROG; V2.TENSE=V1.TENSE;
+        del_node A ; 
+		add_node S2:<V2; append_feats S==>S2; S2.lemma=S.lemma;
+		add_node D2:<S2; append_feats D==>D2; D2.lemma="the";
+        add_edge D2-[RSTR:H]->S2;
+        add_edge V2-[ARG1:NEQ]->S2
+        }}
