@@ -15,9 +15,9 @@ https://github.com/feralvam/easse/tree/master/easse/resources/data
 
 This folder contains the following system outputs:
 
-**Dress-Ls**:"Sentence Simplification with Deep Reinforcement Learning" (paper). 
-**Hybrid**: "Hybrid Simplification using Deep Semantics and Machine Translation" (paper).
-**PBMT-R**: "Sentence Simplification by Monolingual Machine Translation" (paper). 
-**UNTS**: "Unsupervised Neural Text Simplification" (paper).
-**DSS**: "Direct Semantic Splitting" (paper).
-This site was built using [GitHub Pages](https://pages.github.com/)
+- **Dress-Ls**:"Sentence Simplification with Deep Reinforcement Learning" [(paper)] (http://aclweb.org/anthology/D/D17/D17-1062.pdf). 
+- **Hybrid**: "Hybrid Simplification using Deep Semantics and Machine Translation" [(paper)] (https://aclanthology.org/P14-1041.pdf).
+- **PBMT-R**: "Sentence Simplification by Monolingual Machine Translation" [(paper)] (https://aclanthology.org/P12-1107/). 
+- **UNTS**: "Unsupervised Neural Text Simplification" [(paper)] (https://aclanthology.org/P19-1198/).
+- **DSS**: "Direct Semantic Splitting" [(paper)] (https://arxiv.org/abs/1810.05104).
+
